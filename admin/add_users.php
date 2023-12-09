@@ -16,32 +16,35 @@ if(!$user->loggedIn()) {
 	header("location: index.php");
 }
 
-$user->id = (isset($_GET['id']) && $_GET['id']) ? $_GET['id'] : '0';
+$user = new User($db);
+
+$userDetails = $user->getUser();
+
+$user->setId((isset($_GET['id']) && $_GET['id']) ? $_GET['id'] : 0);
 $saveMessage = '';
 if(!empty($_POST["saveUser"]) && $_POST["email"]!='') {
 	
-	$user->first_name = $_POST["first_name"];
-	$user->last_name = $_POST["last_name"];	
-	$user->email = $_POST["email"];
-	$user->type = $_POST["user_type"];	
-	$user->deleted = $_POST["user_status"];		
-	if($user->id) {	
+	$user->setFirst_name($_POST["first_name"]);
+	$user->setLast_name($_POST["last_name"]);	
+	$user->setEmail($_POST["email"]);
+	$user->setUser_type($_POST["user_type"]);
+	$user->setUser_status($_POST["user_status"]);
+	if($user->getId()) {	
 		$user->updated = date('Y-m-d H:i:s');
 		if($user->update()) {
 			$saveMessage = "User updated successfully!";
 		}
 	} else {	
-		$user->password = $_POST["password"];
+		$user->setPassword($_POST["password"]);
 		$lastInserId = $user->insert();
 		if($lastInserId) {
-			$user->id = $lastInserId;
+			$user->setId($lastInserId);
 			$saveMessage = "User saved successfully!";
 		}
 	}
 }
 
 $userDetails = $user->getUser();
- 
 include('inc/header.php');
 ?>
 <script src="js/jquery.dataTables.min.js"></script>
@@ -58,7 +61,7 @@ include('inc/header.php');
 			<div class="col-md-10">
 				<h1><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard <small>Manage Your Site</small></h1>
 			</div>
-			<br>			
+			<br>
 		</div>
 	</div>
 </header>
@@ -70,7 +73,7 @@ include('inc/header.php');
 			<div class="col-md-9">
 				<div class="panel panel-default">
 				  <div class="panel-heading">
-					<h3 class="panel-title">Add / Edit User</h3>
+					<h3 class="panel-title"><?= isset($_GET['id']) ? "Edit User": "Add New User"?></h3>
 				  </div>
 				  <div class="panel-body">
 				  
@@ -80,48 +83,65 @@ include('inc/header.php');
 						<?php } ?>
 						<div class="form-group">
 							<label for="title" class="control-label">First Name</label>
-							<input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo $userDetails['first_name']; ?>" placeholder="First name..">							
+							<input type="text" class="form-control" id="first_name" name="first_name" value="<?= isset($userdetails) ? htmlspecialchars($userdetails['first_name']) : ""; ?>" placeholder="First name..">							
 						</div>
 						
 						<div class="form-group">
 							<label for="title" class="control-label">Last Name</label>
-							<input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo $userDetails['last_name']; ?>" placeholder="Last name..">							
+							<input type="text" class="form-control" id="last_name" name="last_name" value="<?= isset($userDetails) ? htmlspecialchars($userDetails['last_name']): ""; ?>" placeholder="Last name..">							
 						</div>
 						
 						<div class="form-group">
 							<label for="title" class="control-label">Email</label>
-							<input type="email" class="form-control" id="email" name="email" value="<?php echo $userDetails['email']; ?>" placeholder="email..">							
+							<input type="email" class="form-control" id="email" name="email" value="<?= isset($userDetails) ? htmlspecialchars($userDetails['email']): ""; ?>" placeholder="Email..">							
 						</div>					
 						<?php 
-						if(!$user->id) {	
+						if(!$user->getId()) {	
 						?>
 						<div class="form-group">
 							<label for="title" class="control-label">Password</label>
-							<input type="password" class="form-control" id="password" name="password" value="<?php echo $userDetails['password']; ?>" placeholder="password..">							
+							<input type="password" class="form-control" id="password" name="password" value="<?= isset($userDetails) ? htmlspecialchars($userDetails['password']): ""; ?>" placeholder="password..">							
 						</div>	
 						<?php } ?>						
 											
 						<div class="form-group">
 							<label for="status" class="control-label">User Type </label>							
 							<label class="radio-inline">
-								<input type="radio" name="user_type" id="admin" value="1" <?php if($userDetails['type'] == 1) { echo "checked";} ?>>Administrator
+								<input type="radio" name="user_type" id="admin" value="1" <?php if(isset($userDetails)) {
+																									if ($userDetails['type'] == 1) { 
+																										echo "checked";
+																									} 
+																								} else echo ""?>>Administrator
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="user_type" id="author" value="2" <?php if($userDetails['type'] == 2) { echo "checked";} ?>>Author
+								<input type="radio" name="user_type" id="author" value="2" <?php if(isset($userDetails)) {
+																									if ($userDetails['type'] == 2) { 
+																										echo "checked";
+																									} 
+																								} else echo ""?>>Author
 							</label>												
 						</div>		
 
 						<div class="form-group">
 							<label for="status" class="control-label">User Status </label>							
 							<label class="radio-inline">
-								<input type="radio" name="user_status" id="active" value="0" <?php if(!$userDetails['deleted']) { echo "checked";} ?>>Active
+								<input type="radio" name="user_status" id="active" value="0" <?php if(isset($userDetails)) {
+																										if(!$userDetails['deleted']) { 
+																											echo "checked";
+																										}
+																									} else echo "" ?>>Active
 							</label>
 							<label class="radio-inline">
-								<input type="radio" name="user_status" id="inactive" value="1" <?php if($userDetails['deleted']) { echo "checked";} ?>>Inactive
+								<input type="radio" name="user_status" id="inactive" value="1" <?php if(isset($userDetails)) {
+																										if($userDetails['deleted']) { 
+																											echo "checked";
+																										} 
+																									} else echo "" ?>>Inactive
 							</label>												
 						</div>	
 						
 						<input type="submit" name="saveUser" id="saveUser" class="btn btn-info" value="Save" />											
+						<a href="users.php" class="btn btn-warning ">Back</a>
 					</form>				
 				  </div>
 				</div>

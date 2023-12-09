@@ -1,9 +1,15 @@
 <?php
 class User {	
    
-	private $userTable = 'cms_user';	
+	private $userTable = 'cms_user';
+	private $id;
 	private $conn;
-	
+	private $first_name;
+	private $last_name;
+	private $email;
+	private $type;
+	private $deleted;
+	private $password;
 	public function __construct($db){
         $this->conn = $db;
     }	    
@@ -202,5 +208,89 @@ class User {
 		}
 	}
 
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public function setFirst_name($first_name)
+	{
+		$this->first_name = $first_name;
+
+		return $this;
+	}
+
+	public function getFirst_name()
+	{
+		return $this->first_name;
+	}
+
+	public function setLast_name($last_name)
+	{
+		$this->last_name = $last_name;
+
+		return $this;
+	}
+
+
+	public function setPassword($password)
+	{
+		$this->password = $password;
+
+		return $this;
+	}
+
+	public function setUser_type($type)
+	{
+		$this->type = $type;
+
+		return $this;
+	}
+
+	public function setUser_status($status)
+	{
+		$this->status = $status;
+
+		return $this;
+	}
+
+	public function getLast_name()
+	{
+		return $this->last_name;
+	}
+
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	
+	public function setEmail($email)
+	{
+		$this->email = $email;
+
+		return $this;
+	}
+
+	public function getPassword()
+	{
+		return $this->password;
+	}
+
+	public function getUser_type()
+	{
+		return $this->type;
+	}
+
+	public function getUset_status()
+	{
+		return $this->status;
+	}
 }
 ?>

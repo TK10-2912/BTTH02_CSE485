@@ -12,15 +12,19 @@ if($user->loggedIn()) {
 }
 
 $loginMessage = '';
-if(!empty($_POST["login"]) && $_POST["email"]!=''&& $_POST["password"]!='') {	
-	$user->email = $_POST["email"];
-	$user->password = $_POST["password"];
-	if($user->login()) {
-		header("location: dashboard.php");
-	} else {
-		$loginMessage = 'Invalid login! Please try again.';
-	}
+
+if (!empty($_POST["login"]) && !empty($_POST["email"]) && !empty($_POST["password"])) {
+    $user->setEmail($_POST["email"]);
+    $user->setPassword($_POST["password"]);
+
+    if ($user->login()) {
+        header("location: dashboard.php");
+        exit;  // Exit to stop script execution after redirection
+    } else {
+        $loginMessage = 'Invalid login! Please try again.';
+    }
 }
+
 
 include('inc/header.php');
 ?>

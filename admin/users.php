@@ -45,7 +45,7 @@ include('inc/header.php');
 			<?php include "left_menus.php"; ?>
 			<div class="col-md-9">
 				<div class="panel panel-default">
-					<div class="panel-heading"style="background-color:  #095f59;>
+					<div class="panel-heading"style="background-color:  #095f59">
 						<h3 class="panel-title">Latest Users</h3>
 					</div>
 					<div class="panel-body">
@@ -62,12 +62,12 @@ include('inc/header.php');
 						<table id="userList" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Name</th>									
-									<th>Email</th>
-									<th>Type</th>	
-									<th>Status</th>																				
-									<th></th>
-									<th></th>	
+									<th>First name</th>									
+									<th>Last name</th>
+									<th>Email</th>	
+									<th>Password</th>																				
+									<th>User Type</th>
+									<th>User Status</th>	
 								</tr>
 							</thead>
 						</table>
