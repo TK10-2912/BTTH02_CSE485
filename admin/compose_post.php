@@ -51,7 +51,6 @@ include('inc/header.php');
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
-<script src="js/posts.js"></script>
 <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -78,22 +77,22 @@ include('inc/header.php');
 							<h3 class="panel-title"><?= isset($_GET['id']) ? "Edit Post" : "Add New Post" ?></h3>
 						</div>
 						<div class="panel-body">
-
+							
 							<form method="post" id="postForm">
 								<?php if ($saveMessage != '') { ?>
 									<div id="login-alert" class="alert alert-success col-sm-12"><?php echo $saveMessage; ?></div>
-								<?php } ?>
-								<div class="form-group">
-									<label for="title" class="control-label">Title</label>
+									<?php } ?>
+									<div class="form-group">
+										<label for="title" class="control-label">Title</label>
 									<input type="text" class="form-control" id="title" name="title" value="<?= isset($postdetails) ? htmlspecialchars($postdetails['title']) : ""; ?>" placeholder="Post title..">
 								</div>
-
+								
 								<div class="form-group">
 									<label for="lastname" class="control-label">Message</label>
 									<textarea class="form-control" rows="5" id="message" name="message" placeholder="<?= isset($postdetails) ? htmlspecialchars($postdetails['message']) : "Post message.."; ?>"></textarea>
 								</div>
-
-
+								
+								
 								<div class="form-group">
 									<label for="sel1">Category</label>
 									<select class="form-control" id="category" name="category">
@@ -112,10 +111,10 @@ include('inc/header.php');
 									<label for="status" class="control-label"></label>
 									<label class="radio-inline">
 										<input type="radio" name="status" id="publish" value="published" <?php if (isset($postdetails)) {
-																												if ($postdetails['status'] == 'published') {
-																													echo "checked";
-																												}
-																											} else echo "" ?>>Publish
+											if ($postdetails['status'] == 'published') {
+												echo "checked";
+											}
+										} else echo "" ?>>Publish
 									</label>
 									<label class="radio-inline">
 										<input type="radio" name="status" id="draft" value="draft" <?php if (isset($postdetails)) {
@@ -126,10 +125,10 @@ include('inc/header.php');
 									</label>
 									<label class="radio-inline">
 										<input type="radio" name="status" id="archived" value="archived" <?php if (isset($postdetails)) {
-																												if ($postdetails['status'] == 'archived') {
-																													echo "checked";
-																												}
-																											} else echo "" ?>>Archive
+											if ($postdetails['status'] == 'archived') {
+												echo "checked";
+											}
+										} else echo "" ?>>Archive
 									</label>
 								</div>
 								<input type="submit" name="savePost" id="savePost" class="btn btn-info" value="Save" />
@@ -141,4 +140,5 @@ include('inc/header.php');
 			</div>
 		</div>
 	</section>
+	<script src="js/posts.js"></script>
 	<?php include('inc/footer.php'); ?>

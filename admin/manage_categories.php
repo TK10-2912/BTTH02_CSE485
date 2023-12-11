@@ -10,7 +10,7 @@ if(!empty($_POST['action']) && $_POST['action'] == 'categoryListing') {
 	$category->getCategoryListing();
 }
 if(!empty($_POST['action']) && $_POST['action'] == 'categoryDelete') {
-	$category->id = (isset($_POST['categoryId']) && $_POST['categoryId']) ? $_POST['categoryId'] : '0';
+	$category->setId((isset($_POST['categoryId']) && $_POST['categoryId']) ? $_POST['categoryId'] : 0);
 	$category->delete();
 }
 ?>

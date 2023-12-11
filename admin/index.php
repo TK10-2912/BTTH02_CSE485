@@ -55,12 +55,6 @@ include('inc/header.php');
 						  <input type="submit" name="login" value="Login" class="btn btn-info">						  
 						</div>						
 					</div>	
-					<div style="margin-top:10px" class="form-group">                               
-						<div class="col-sm-12 controls">
-						User: admin@phpzag.com<br>
-						password:123				  
-						</div>						
-					</div>	
 				</form>   
 			</div>                     
 		</div>  

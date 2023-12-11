@@ -35,8 +35,8 @@ include('inc/header.php');
 					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Manage
 					<span class="caret"></span></button>
 					<ul class="dropdown-menu">						
-						<li><a href="#">Add Post</a></li>
-						<li><a href="#">Add Category</a></li>
+						<li><a href="compose_post.php">Add Post</a></li>
+						<li><a href="add_categories.php">Add Category</a></li>
 					</ul>
 				</div> 
 			</div>
@@ -56,7 +56,7 @@ include('inc/header.php');
       <div class="col-md-9">
           <div class="panel panel-default">
   <div class="panel-heading" style="background-color:  #095f59;">
-    <h3 class="panel-title">Website Overview</h3>
+    <h3 class="panel-title" style="color: #ffff">Website Overview</h3>
   </div>
   <div class="panel-body">
    <div class="col-md-3">

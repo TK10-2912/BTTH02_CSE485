@@ -17,7 +17,7 @@ $(document).ready(function(){
 			},
 		],
 		"pageLength": 10
-	});		
+	});	
 	$(document).on('click', '.delete', function(){
 		var postId = $(this).attr("id");		
 		var action = "postDelete";
