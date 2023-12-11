@@ -30,7 +30,7 @@ if(!empty($_POST["saveUser"]) && $_POST["email"]!='') {
 	$user->setUser_type($_POST["user_type"]);
 	$user->setUser_status($_POST["user_status"]);
 	if($user->getId()) {	
-		$user->updated = date('Y-m-d H:i:s');
+		$user->$updated = date('Y-m-d H:i:s');
 		if($user->update()) {
 			$saveMessage = "User updated successfully!";
 		}

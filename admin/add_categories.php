@@ -18,20 +18,20 @@ if(!$user->loggedIn()) {
 
 $category = new Category($db);
 
-$category->id = (isset($_GET['id']) && $_GET['id']) ? $_GET['id'] : '0';
+$category->$id = (isset($_GET['id']) && $_GET['id']) ? $_GET['id'] : '0';
 
 $saveMessage = '';
 if(!empty($_POST["categorySave"]) && $_POST["categoryName"]!='') {
 	
-	$category->name = $_POST["categoryName"];	
-	if($category->id) {			
+	$category->$name = $_POST["categoryName"];	
+	if($category->$id) {			
 		if($category->update()) {
 			$saveMessage = "Category updated successfully!";
 		}
 	} else {			
 		$lastInserId = $category->insert();
 		if($lastInserId) {
-			$category->id = $lastInserId;
+			$category->$id = $lastInserId;
 			$saveMessage = "Category saved successfully!";
 		}
 	}
